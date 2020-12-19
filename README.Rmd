@@ -1,0 +1,109 @@
+---
+title: "Japan suicide cases reported by National Police Agency"
+author: "Mitsuo Shiota"
+date: "12/19/2020"
+output: 
+  github_document:
+    toc: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Updated: `r Sys.Date()`
+
+## Motivation
+
+I was watching News Center 9, an NHK nightly news program, on December 16. It told suicide cases have been rapidly surging since July 2020 in Japan by showing a chart, which I will replicate later. I felt the apparent rapid surge might be an exaggeration. 
+
+```{r library, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+library(tqr)
+```
+
+## Get data from National Police Agency
+
+I make a csv file manually from the data in [National Police Agency site](https://www.npa.go.jp/publications/statistics/safetylife/jisatsu.html). I can get monthly suicide cases, not separated by gender but total, since January 2008. 
+
+```{r input, message=FALSE}
+npa <- read_csv("data/npa.csv")
+npa_data <- npa %>% 
+  pivot_longer(!year, names_to = "month", values_to = "cases") %>% 
+  mutate(
+    year = as.integer(year),
+    month = as.integer(month),
+    time = make_date(year, month, 01L)
+  ) %>% 
+  arrange(time)
+
+head(npa_data)
+```
+
+## Replicate the chart
+
+I watch the program again in [NHK plus site](https://plus.nhk.jp/), which requires registration, and replicate the chart below, though the original chart did not include November 2020. Look at the 2020 line, and find it exceeds the Mean (2017-2019) line since July.
+
+Yes, the 2020 line shows a rapid surge. But, why was it significantly below the Mean (2017-2019) line from April to June in the first place? I remember National Declaration of State of Emergency to fight Covid-19 was effective from April 15 to May 24. As "month" indicates the timing of discovery, not of commitment, in the National Police Agency data, I suspect some cases were not discovered in the emergency period, and were discovered later. This may explain some part of excess since July.
+
+```{r replicate, echo=FALSE, warning=FALSE}
+df_last_3_yr_avg <- npa_data %>% 
+  filter(time >= "2017-01-01", time <= "2019-12-01") %>% 
+  select(!time) %>% 
+  pivot_wider(names_from = month, values_from = cases) %>% 
+  summarize(across(!year, mean)) %>% 
+  pivot_longer(everything(), names_to = "month", values_to = "last_3_yr_avg") %>% 
+  mutate(month = as.integer(month))
+
+npa_data %>% 
+  filter(time >= "2020-01-01") %>% 
+  select(c(month, cases)) %>% 
+  right_join(df_last_3_yr_avg, by = "month") %>% 
+  rename(
+    `2020` = cases,
+    `Mean (2017-2019)` = last_3_yr_avg
+  ) %>% 
+  pivot_longer(!month, names_to = "year", values_to = "cases") %>% 
+  ggplot(aes(month, cases, color = year)) +
+  geom_line() +
+  scale_x_continuous(breaks = 1:12) +
+  labs(color = NULL)
+
+```
+
+## Suicide cases are bouncing back, but not as fast as the program suggests
+
+As I read the book "Towards Evidence-Based Suicide Prevention: Perspectives from Economics and Political Science", co-authored by the original chart creator in the program, I know that the unemployed are more likely to commit suicide than the employed, and that unemployment rates are highly correlated with suicide cases.
+
+As Japan has been officially in recession since October 2018, [the unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S) hit the bottom in late 2019, and began to climb in 2020.
+
+I draw a chart of both original and seasonally-adjusted cases since 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and are bouncing back, even though I consider the fluctuations in 2020 should be smoothed out.
+
+```{r simple_chart, echo=FALSE}
+npa_ts <- npa_data %>% 
+  drop_na(cases) %>% 
+  select(c(time, cases)) %>% 
+  mutate(
+    key = "original",
+    time = yearmonth(time)
+    ) %>% 
+  as_tsibble(key = key, index = time)
+
+npa_sa <- npa_ts %>% 
+  tq_sa() %>% 
+  mutate(key = "seasonally adjusted")
+
+npa_ts %>% 
+  bind_rows(npa_sa) %>% 
+  ggplot(aes(time, cases, color = key)) +
+  geom_line() +
+  labs(x = NULL, color = NULL) +
+  theme(legend.position = "top")
+  
+```
+
+EOL
