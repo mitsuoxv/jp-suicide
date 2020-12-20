@@ -10,7 +10,7 @@ Mitsuo Shiota
   - [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2020-12-19
+Updated: 2020-12-20
 
 ## Motivation
 
@@ -78,6 +78,8 @@ rates are highly correlated with suicide cases.
 As Japan has been officially in recession since October 2018, [the
 unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S)
 hit the bottom in late 2019, and began to climb in 2020.
+
+![](README_files/figure-gfm/unemployment_chart-1.png)<!-- -->
 
 I draw a chart of both original and seasonally-adjusted cases since
 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and

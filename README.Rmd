@@ -81,6 +81,29 @@ As I read the book "Towards Evidence-Based Suicide Prevention: Perspectives from
 
 As Japan has been officially in recession since October 2018, [the unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S) hit the bottom in late 2019, and began to climb in 2020.
 
+```{r unemployment_chart, echo=FALSE, message=FALSE}
+unemployment_rate <- read_csv("data/unemployment_rate.csv")
+
+names(unemployment_rate) <- c("time", "area_code", "area", "percent", "note")
+
+unemployment_rate %>% 
+  select(c(time, percent)) %>% 
+  mutate(
+    time = str_replace(time, "年", "-"),
+    time = str_replace(time, "月", "-01"),
+    time = as_date(time)
+    ) %>% 
+  filter(time >= "2008-01-01") %>% 
+  ggplot(aes(time, percent)) +
+  geom_line() +
+  labs(
+    title = "Unemployment rates (seasonally-adjusted)",
+    x = NULL
+  )
+
+```
+
+
 I draw a chart of both original and seasonally-adjusted cases since 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and are bouncing back, even though I consider the fluctuations in 2020 should be smoothed out.
 
 ```{r simple_chart, echo=FALSE}
@@ -101,8 +124,11 @@ npa_ts %>%
   bind_rows(npa_sa) %>% 
   ggplot(aes(time, cases, color = key)) +
   geom_line() +
-  labs(x = NULL, color = NULL) +
-  theme(legend.position = "top")
+  labs(
+    title = "Suicide cases",
+    x = NULL, color = NULL
+    ) +
+  theme(legend.position = "bottom")
   
 ```
 
