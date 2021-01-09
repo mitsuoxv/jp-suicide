@@ -22,6 +22,7 @@ I was watching News Center 9, an NHK nightly news program, on December 16. It to
 ```{r library, include=FALSE}
 library(tidyverse)
 library(lubridate)
+library(readxl)
 library(tsibble)
 library(tqr)
 ```
@@ -81,18 +82,24 @@ As I read the book "Towards Evidence-Based Suicide Prevention: Perspectives from
 
 As Japan has been officially in recession since October 2018, [the unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S) hit the bottom in late 2019, and began to climb in 2020.
 
-```{r unemployment_chart, echo=FALSE, message=FALSE}
-unemployment_rate <- read_csv("data/unemployment_rate.csv")
+```{r unemployment_chart, echo=FALSE, message=FALSE, results=FALSE}
+tf <- tempfile(fileext = ".xlsx") # lt01-a10.xlsx
 
-names(unemployment_rate) <- c("time", "area_code", "area", "percent", "note")
+url <- "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031831358&fileKind=0"
+
+httr::GET(url, httr::write_disk(tf))
+
+unemployment_rate <- read_excel(tf, col_names = FALSE, skip = 9)
+unemployment_rate <- unemployment_rate[, c(1:2, 20)]
+names(unemployment_rate) <- c("year", "month", "percent")
+
+unemployment_rate$time <- (as_date("1953-01-01") + months(0:(nrow(unemployment_rate) - 1)))
+
+unemployment_rate <- unemployment_rate %>% 
+  drop_na(percent)
 
 unemployment_rate %>% 
   select(c(time, percent)) %>% 
-  mutate(
-    time = str_replace(time, "年", "-"),
-    time = str_replace(time, "月", "-01"),
-    time = as_date(time)
-    ) %>% 
   filter(time >= "2008-01-01") %>% 
   ggplot(aes(time, percent)) +
   geom_line() +
