@@ -47,7 +47,7 @@ head(npa_data)
 
 ## Replicate the chart
 
-I watch the program again in [NHK plus site](https://plus.nhk.jp/), which requires registration, and replicate the chart below, though the original chart did not include November 2020. Look at the 2020 line, and find it exceeds the Mean (2017-2019) line since July.
+I watch the program again in [NHK plus site](https://plus.nhk.jp/), which requires registration, and replicate the chart below, though the original chart did not include November and December 2020. Look at the 2020 line, and find it exceeds the Mean (2017-2019) line since July.
 
 Yes, the 2020 line shows a rapid surge. But, why was it significantly below the Mean (2017-2019) line from April to June in the first place? I remember National Declaration of State of Emergency to fight Covid-19 was effective from April 15 to May 24. As "month" indicates the timing of discovery, not of commitment, in the National Police Agency data, I suspect some cases were not discovered in the emergency period, and were discovered later. This may explain some part of excess since July.
 
@@ -61,7 +61,7 @@ df_last_3_yr_avg <- npa_data %>%
   mutate(month = as.integer(month))
 
 npa_data %>% 
-  filter(time >= "2020-01-01") %>% 
+  filter(time >= "2020-01-01", time <= "2020-12-01") %>% 
   select(c(month, cases)) %>% 
   right_join(df_last_3_yr_avg, by = "month") %>% 
   rename(
@@ -80,7 +80,38 @@ npa_data %>%
 
 As I read the book "Towards Evidence-Based Suicide Prevention: Perspectives from Economics and Political Science", co-authored by the original chart creator in the program, I know that the unemployed are more likely to commit suicide than the employed, and that unemployment rates are highly correlated with suicide cases.
 
-As Japan has been officially in recession since October 2018, [the unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S) hit the bottom in late 2019, and began to climb in 2020.
+As Japan has been officially in recession since October 2018, the unemployment rates hit the bottom in late 2019, and began to climb in 2020.
+
+```{r recession, echo=FALSE}
+recessions_df = tribble(
+  ~Peak, ~Trough,
+  #----------|----------
+  # "1951-06-01", "1951-10-01",
+  # "1954-01-01", "1954-11-01",
+  # "1957-06-01", "1958-06-01",
+  # "1961-12-01", "1962-10-01",
+  # "1964-10-01", "1965-10-01",
+  # "1970-07-01", "1971-12-01",
+  # "1973-11-01", "1975-03-01",
+  # "1977-01-01", "1977-10-01",
+  # "1980-02-01", "1983-02-01",
+  # "1985-06-01", "1986-11-01",
+  # "1991-02-01", "1993-10-01",
+  # "1997-05-01", "1999-01-01",
+  # "2000-11-01", "2002-01-01",
+  "2008-02-01", "2009-03-01",
+  "2012-03-01", "2012-11-01",
+  "2018-10-01", "2020-12-01"
+)
+
+recessions_df <- recessions_df %>% 
+  mutate(
+    Peak = as.Date(Peak),
+    Trough = as.Date(Trough)
+  )
+
+```
+
 
 ```{r unemployment_chart, echo=FALSE, message=FALSE, results=FALSE}
 tf <- tempfile(fileext = ".xlsx") # lt01-a10.xlsx
@@ -93,7 +124,7 @@ unemployment_rate <- read_excel(tf, col_names = FALSE, skip = 9)
 unemployment_rate <- unemployment_rate[, c(1:2, 20)]
 names(unemployment_rate) <- c("year", "month", "percent")
 
-unemployment_rate$time <- (as_date("1953-01-01") + months(0:(nrow(unemployment_rate) - 1)))
+unemployment_rate$time <- (as.Date("1953-01-01") + months(0:(nrow(unemployment_rate) - 1)))
 
 unemployment_rate <- unemployment_rate %>% 
   drop_na(percent)
@@ -103,6 +134,9 @@ unemployment_rate %>%
   filter(time >= "2008-01-01") %>% 
   ggplot(aes(time, percent)) +
   geom_line() +
+  geom_rect(data = recessions_df, inherit.aes = FALSE,
+            aes(xmin = Peak, xmax = Trough, ymin = -Inf, ymax = +Inf),
+            fill='darkgray', alpha=0.5) +
   labs(
     title = "Unemployment rates (seasonally-adjusted)",
     x = NULL

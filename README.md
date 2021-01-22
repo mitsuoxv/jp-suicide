@@ -10,7 +10,7 @@ Mitsuo Shiota
   - [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-01-09
+Updated: 2021-01-22
 
 ## Motivation
 
@@ -54,8 +54,8 @@ head(npa_data)
 
 I watch the program again in [NHK plus site](https://plus.nhk.jp/),
 which requires registration, and replicate the chart below, though the
-original chart did not include November 2020. Look at the 2020 line, and
-find it exceeds the Mean (2017-2019) line since July.
+original chart did not include November and December 2020. Look at the
+2020 line, and find it exceeds the Mean (2017-2019) line since July.
 
 Yes, the 2020 line shows a rapid surge. But, why was it significantly
 below the Mean (2017-2019) line from April to June in the first place? I
@@ -75,9 +75,9 @@ original chart creator in the program, I know that the unemployed are
 more likely to commit suicide than the employed, and that unemployment
 rates are highly correlated with suicide cases.
 
-As Japan has been officially in recession since October 2018, [the
-unemployment rates](https://fred.stlouisfed.org/series/LRUN64TTJPM156S)
-hit the bottom in late 2019, and began to climb in 2020.
+As Japan has been officially in recession since October 2018, the
+unemployment rates hit the bottom in late 2019, and began to climb in
+2020.
 
 ![](README_files/figure-gfm/unemployment_chart-1.png)<!-- -->
 
