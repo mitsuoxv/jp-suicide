@@ -10,7 +10,7 @@ Mitsuo Shiota
   - [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-01-22
+Updated: 2021-01-24
 
 ## Motivation
 
@@ -57,13 +57,14 @@ which requires registration, and replicate the chart below, though the
 original chart did not include November and December 2020. Look at the
 2020 line, and find it exceeds the Mean (2017-2019) line since July.
 
-Yes, the 2020 line shows a rapid surge. But, why was it significantly
-below the Mean (2017-2019) line from April to June in the first place? I
-remember National Declaration of State of Emergency to fight Covid-19
-was effective from April 15 to May 24. As “month” indicates the timing
-of discovery, not of commitment, in the National Police Agency data, I
-suspect some cases were not discovered in the emergency period, and were
-discovered later. This may explain some part of excess since July.
+Yes, the 2020 line shows a rapid surge up to October. But, why was it
+significantly below the Mean (2017-2019) line from April to June in the
+first place? I remember National Declaration of State of Emergency to
+fight Covid-19 was effective from April 15 to May 24. As “month”
+indicates the timing of discovery, not of commitment, in the National
+Police Agency data, I suspect some cases were not discovered in the
+emergency period, and were discovered later. This may explain some part
+of excess from July to October.
 
 ![](README_files/figure-gfm/replicate-1.png)<!-- -->
 

@@ -49,7 +49,7 @@ head(npa_data)
 
 I watch the program again in [NHK plus site](https://plus.nhk.jp/), which requires registration, and replicate the chart below, though the original chart did not include November and December 2020. Look at the 2020 line, and find it exceeds the Mean (2017-2019) line since July.
 
-Yes, the 2020 line shows a rapid surge. But, why was it significantly below the Mean (2017-2019) line from April to June in the first place? I remember National Declaration of State of Emergency to fight Covid-19 was effective from April 15 to May 24. As "month" indicates the timing of discovery, not of commitment, in the National Police Agency data, I suspect some cases were not discovered in the emergency period, and were discovered later. This may explain some part of excess since July.
+Yes, the 2020 line shows a rapid surge up to October. But, why was it significantly below the Mean (2017-2019) line from April to June in the first place? I remember National Declaration of State of Emergency to fight Covid-19 was effective from April 15 to May 24. As "month" indicates the timing of discovery, not of commitment, in the National Police Agency data, I suspect some cases were not discovered in the emergency period, and were discovered later. This may explain some part of excess from July to October.
 
 ```{r replicate, echo=FALSE, warning=FALSE}
 df_last_3_yr_avg <- npa_data %>% 
@@ -60,8 +60,12 @@ df_last_3_yr_avg <- npa_data %>%
   pivot_longer(everything(), names_to = "month", values_to = "last_3_yr_avg") %>% 
   mutate(month = as.integer(month))
 
+df_10_12 <- npa_data %>% 
+  filter(time >= "2020-10-01", time <= "2020-12-01") %>% 
+  select(c(month, cases))
+
 npa_data %>% 
-  filter(time >= "2020-01-01", time <= "2020-12-01") %>% 
+  filter(time >= "2020-01-01", time <= "2020-10-01") %>% 
   select(c(month, cases)) %>% 
   right_join(df_last_3_yr_avg, by = "month") %>% 
   rename(
@@ -69,11 +73,12 @@ npa_data %>%
     `Mean (2017-2019)` = last_3_yr_avg
   ) %>% 
   pivot_longer(!month, names_to = "year", values_to = "cases") %>% 
-  ggplot(aes(month, cases, color = year)) +
-  geom_line() +
+  ggplot() +
+  geom_line(aes(month, cases, color = year)) +
+  geom_line(data = df_10_12, aes(month, cases), linetype = "dashed", color = "red") +
+  scale_color_manual(values = c("red", "blue")) +
   scale_x_continuous(breaks = 1:12) +
   labs(color = NULL)
-
 ```
 
 ## Suicide cases are bouncing back, but not as fast as the program suggests
