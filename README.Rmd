@@ -10,22 +10,26 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+knitr::opts_chunk$set(
+  echo = FALSE,
+  fig.width = 6,
+  fig.asp = 0.618,
+  out.width = "70%",
+  fig.align = "center"
+  )
 
-Updated: `r Sys.Date()`
-
-## Motivation
-
-I was watching News Center 9, an NHK nightly news program, on December 16. It told suicide cases have been rapidly surging since July 2020 in Japan by showing a chart, which I will replicate later. I felt the apparent rapid surge might be an exaggeration. 
-
-```{r library, include=FALSE}
 library(tidyverse)
 library(lubridate)
 library(readxl)
 library(tsibble)
 library(tqr)
 ```
+
+Updated: `r Sys.Date()`
+
+## Motivation
+
+I was watching News Center 9, an NHK nightly news program, on December 16, 2020. It told suicide cases have been rapidly surging since July 2020 in Japan by showing a chart, which I will replicate later. I felt the apparent rapid surge might be an exaggeration. 
 
 ## Get data from National Police Agency
 
@@ -51,7 +55,7 @@ I watch the program again in [NHK plus site](https://plus.nhk.jp/), which requir
 
 Yes, the 2020 line shows a rapid surge up to October. But, why was it significantly below the Mean (2017-2019) line from April to June in the first place? I remember National Declaration of State of Emergency to fight Covid-19 was effective from April 15 to May 24. As "month" indicates the timing of discovery, not of commitment, in the National Police Agency data, I suspect some cases were not discovered in the emergency period, and were discovered later. This may explain some part of excess from July to October.
 
-```{r replicate, echo=FALSE, warning=FALSE}
+```{r replicate, warning=FALSE}
 df_last_3_yr_avg <- npa_data %>% 
   filter(time >= "2017-01-01", time <= "2019-12-01") %>% 
   select(!time) %>% 
@@ -87,7 +91,7 @@ As I read the book "Towards Evidence-Based Suicide Prevention: Perspectives from
 
 As Japan has been officially in recession since October 2018, the unemployment rates hit the bottom in late 2019, and began to climb in 2020.
 
-```{r recession, echo=FALSE}
+```{r recession}
 recessions_df = tribble(
   ~Peak, ~Trough,
   #----------|----------
@@ -106,7 +110,7 @@ recessions_df = tribble(
   # "2000-11-01", "2002-01-01",
   "2008-02-01", "2009-03-01",
   "2012-03-01", "2012-11-01",
-  "2018-10-01", "2020-12-01"
+  "2018-10-01", "2021-01-01"
 )
 
 recessions_df <- recessions_df %>% 
@@ -118,7 +122,7 @@ recessions_df <- recessions_df %>%
 ```
 
 
-```{r unemployment_chart, echo=FALSE, message=FALSE, results=FALSE}
+```{r unemployment_chart, message=FALSE, results=FALSE}
 tf <- tempfile(fileext = ".xlsx") # lt01-a10.xlsx
 
 url <- "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031831358&fileKind=0"
@@ -152,7 +156,7 @@ unemployment_rate %>%
 
 I draw a chart of both original and seasonally-adjusted cases since 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and are bouncing back, even though I consider the fluctuations in 2020 should be smoothed out.
 
-```{r simple_chart, echo=FALSE}
+```{r simple_chart}
 npa_ts <- npa_data %>% 
   drop_na(cases) %>% 
   select(c(time, cases)) %>% 

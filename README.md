@@ -3,21 +3,21 @@ Japan suicide cases reported by National Police Agency
 Mitsuo Shiota
 12/19/2020
 
-  - [Motivation](#motivation)
-  - [Get data from National Police
+-   [Motivation](#motivation)
+-   [Get data from National Police
     Agency](#get-data-from-national-police-agency)
-  - [Replicate the chart](#replicate-the-chart)
-  - [Suicide cases are bouncing back, but not as fast as the program
+-   [Replicate the chart](#replicate-the-chart)
+-   [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-01-24
+Updated: 2021-02-10
 
 ## Motivation
 
 I was watching News Center 9, an NHK nightly news program, on December
-16. It told suicide cases have been rapidly surging since July 2020 in
-Japan by showing a chart, which I will replicate later. I felt the
-apparent rapid surge might be an exaggeration.
+16, 2020. It told suicide cases have been rapidly surging since July
+2020 in Japan by showing a chart, which I will replicate later. I felt
+the apparent rapid surge might be an exaggeration.
 
 ## Get data from National Police Agency
 
@@ -25,20 +25,6 @@ I make a csv file manually from the data in [National Police Agency
 site](https://www.npa.go.jp/publications/statistics/safetylife/jisatsu.html).
 I can get monthly suicide cases, not separated by gender but total,
 since January 2008.
-
-``` r
-npa <- read_csv("data/npa.csv")
-npa_data <- npa %>% 
-  pivot_longer(!year, names_to = "month", values_to = "cases") %>% 
-  mutate(
-    year = as.integer(year),
-    month = as.integer(month),
-    time = make_date(year, month, 01L)
-  ) %>% 
-  arrange(time)
-
-head(npa_data)
-```
 
     ## # A tibble: 6 x 4
     ##    year month cases time      
@@ -66,7 +52,7 @@ Police Agency data, I suspect some cases were not discovered in the
 emergency period, and were discovered later. This may explain some part
 of excess from July to October.
 
-![](README_files/figure-gfm/replicate-1.png)<!-- -->
+<img src="README_files/figure-gfm/replicate-1.png" width="70%" style="display: block; margin: auto;" />
 
 ## Suicide cases are bouncing back, but not as fast as the program suggests
 
@@ -80,13 +66,13 @@ As Japan has been officially in recession since October 2018, the
 unemployment rates hit the bottom in late 2019, and began to climb in
 2020.
 
-![](README_files/figure-gfm/unemployment_chart-1.png)<!-- -->
+<img src="README_files/figure-gfm/unemployment_chart-1.png" width="70%" style="display: block; margin: auto;" />
 
 I draw a chart of both original and seasonally-adjusted cases since
 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and
 are bouncing back, even though I consider the fluctuations in 2020
 should be smoothed out.
 
-![](README_files/figure-gfm/simple_chart-1.png)<!-- -->
+<img src="README_files/figure-gfm/simple_chart-1.png" width="70%" style="display: block; margin: auto;" />
 
 EOL
