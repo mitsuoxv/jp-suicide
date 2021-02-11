@@ -52,7 +52,7 @@ Police Agency data, I suspect some cases were not discovered in the
 emergency period, and were discovered later. This may explain some part
 of excess from July to October.
 
-<img src="README_files/figure-gfm/replicate-1.png" width="100%" />
+<img src="README_files/figure-gfm/replicate-1.png" width="90%" />
 
 ## Suicide cases are bouncing back, but not as fast as the program suggests
 
@@ -66,13 +66,13 @@ As Japan has been officially in recession since October 2018, the
 unemployment rates hit the bottom in late 2019, and began to climb in
 2020.
 
-<img src="README_files/figure-gfm/unemployment_chart-1.png" width="100%" />
+<img src="README_files/figure-gfm/unemployment_chart-1.png" width="90%" />
 
 I draw a chart of both original and seasonally-adjusted cases since
 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and
 are bouncing back, even though I consider the fluctuations in 2020
 should be smoothed out.
 
-<img src="README_files/figure-gfm/simple_chart-1.png" width="100%" />
+<img src="README_files/figure-gfm/simple_chart-1.png" width="90%" />
 
 EOL
