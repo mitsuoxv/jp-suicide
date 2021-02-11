@@ -12,10 +12,9 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = FALSE,
-  fig.width = 6,
+  fig.width = 7,
   fig.asp = 0.618,
-  out.width = "70%",
-  fig.align = "center"
+  out.width = "100%"
   )
 
 library(tidyverse)
@@ -23,6 +22,7 @@ library(lubridate)
 library(readxl)
 library(tsibble)
 library(tqr)
+library(scales)
 ```
 
 Updated: `r Sys.Date()`
@@ -156,7 +156,7 @@ unemployment_rate %>%
 
 I draw a chart of both original and seasonally-adjusted cases since 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and are bouncing back, even though I consider the fluctuations in 2020 should be smoothed out.
 
-```{r simple_chart}
+```{r simple_chart, fig.asp=0.7}
 npa_ts <- npa_data %>% 
   drop_na(cases) %>% 
   select(c(time, cases)) %>% 
@@ -174,9 +174,10 @@ npa_ts %>%
   bind_rows(npa_sa) %>% 
   ggplot(aes(time, cases, color = key)) +
   geom_line() +
+  scale_y_continuous(labels = comma) +
   labs(
     title = "Suicide cases",
-    x = NULL, color = NULL
+    x = NULL, y = NULL, color = NULL
     ) +
   theme(legend.position = "bottom")
   
