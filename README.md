@@ -1,7 +1,7 @@
 Japan suicide cases reported by National Police Agency
 ================
 Mitsuo Shiota
-12/19/2020
+2020-12-19
 
 -   [Motivation](#motivation)
 -   [Get data from National Police
@@ -10,7 +10,7 @@ Mitsuo Shiota
 -   [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-03-10
+Updated: 2021-03-26
 
 ## Motivation
 
