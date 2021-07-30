@@ -10,7 +10,7 @@ Mitsuo Shiota
 -   [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-07-21
+Updated: 2021-07-31
 
 ## Motivation
 
@@ -26,7 +26,7 @@ site](https://www.npa.go.jp/publications/statistics/safetylife/jisatsu.html).
 I can get monthly suicide cases, not separated by gender but total,
 since January 2008.
 
-    ## # A tibble: 6 x 4
+    ## # A tibble: 6 × 4
     ##    year month cases time      
     ##   <int> <int> <dbl> <date>    
     ## 1  2008     1  2542 2008-01-01
