@@ -10,11 +10,11 @@ Mitsuo Shiota
 -   [Suicide cases are bouncing back, but not as fast as the program
     suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2021-08-18
+Updated: 2021-08-21
 
 ## Motivation
 
-I was watching News Center 9, an NHK nightly news program, on December
+I was watching News Watch 9, an NHK nightly news program, on December
 16, 2020. It told suicide cases have been rapidly surging since July
 2020 in Japan by showing a chart, which I will replicate later. I felt
 the apparent rapid surge might be an exaggeration.

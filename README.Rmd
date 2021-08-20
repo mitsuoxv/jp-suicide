@@ -29,7 +29,7 @@ Updated: `r Sys.Date()`
 
 ## Motivation
 
-I was watching News Center 9, an NHK nightly news program, on December 16, 2020. It told suicide cases have been rapidly surging since July 2020 in Japan by showing a chart, which I will replicate later. I felt the apparent rapid surge might be an exaggeration. 
+I was watching News Watch 9, an NHK nightly news program, on December 16, 2020. It told suicide cases have been rapidly surging since July 2020 in Japan by showing a chart, which I will replicate later. I felt the apparent rapid surge might be an exaggeration. 
 
 ## Get data from National Police Agency
 
