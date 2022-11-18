@@ -3,18 +3,18 @@ Japan suicide cases reported by National Police Agency
 Mitsuo Shiota
 2020-12-19
 
--   <a href="#motivation" id="toc-motivation">Motivation</a>
--   <a href="#get-data-from-national-police-agency"
-    id="toc-get-data-from-national-police-agency">Get data from National
-    Police Agency</a>
--   <a href="#replicate-the-chart" id="toc-replicate-the-chart">Replicate
-    the chart</a>
--   <a
-    href="#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests"
-    id="toc-suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests">Suicide
-    cases are bouncing back, but not as fast as the program suggests</a>
+- <a href="#motivation" id="toc-motivation">Motivation</a>
+- <a href="#get-data-from-national-police-agency"
+  id="toc-get-data-from-national-police-agency">Get data from National
+  Police Agency</a>
+- <a href="#replicate-the-chart" id="toc-replicate-the-chart">Replicate
+  the chart</a>
+- <a
+  href="#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests"
+  id="toc-suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests">Suicide
+  cases are bouncing back, but not as fast as the program suggests</a>
 
-Updated: 2022-10-29
+Updated: 2022-11-19
 
 ## Motivation
 
