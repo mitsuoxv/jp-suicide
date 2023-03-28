@@ -14,7 +14,7 @@ Mitsuo Shiota
   id="toc-suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests">Suicide
   cases are bouncing back, but not as fast as the program suggests</a>
 
-Updated: 2023-03-14
+Updated: 2023-03-28
 
 ## Motivation
 
