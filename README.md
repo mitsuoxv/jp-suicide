@@ -10,7 +10,7 @@ Mitsuo Shiota
 - [Suicide cases are bouncing back, but not as fast as the program
   suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2023-06-16
+Updated: 2023-06-30
 
 ## Motivation
 
