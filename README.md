@@ -10,7 +10,7 @@ Mitsuo Shiota
 - [Suicide cases are bouncing back, but not as fast as the program
   suggests](#suicide-cases-are-bouncing-back-but-not-as-fast-as-the-program-suggests)
 
-Updated: 2026-01-31
+Updated: 2026-03-03
 
 ## Motivation
 
@@ -72,6 +72,21 @@ I draw a chart of both original and seasonally-adjusted cases since
 2008. Suicide cases indeed hit the bottom in the beginning of 2020, and
 are bouncing back, even though I consider the fluctuations in 2020
 should be smoothed out.
+
+    ## Warning: There was 1 warning in `dplyr::mutate()`.
+    ## ℹ In argument: `dplyr::across(...)`.
+    ## ℹ In group 1: `key = "original"`.
+    ## Caused by warning:
+    ## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+    ## Supply arguments directly to `.fns` through an anonymous function instead.
+    ## 
+    ##   # Previously
+    ##   across(a:b, mean, na.rm = TRUE)
+    ## 
+    ##   # Now
+    ##   across(a:b, \(x) mean(x, na.rm = TRUE))
+    ## ℹ The deprecated feature was likely used in the tqr package.
+    ##   Please report the issue at <https://github.com/mitsuoxv/tqr/issues>.
 
 <img src="README_files/figure-gfm/simple_chart-1.png" alt="" width="90%" />
 
